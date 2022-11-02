@@ -1,0 +1,2 @@
+[functions."test-scheduled-function"]
+schedule = "@hourly"

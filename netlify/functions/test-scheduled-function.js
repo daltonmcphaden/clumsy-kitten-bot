@@ -1,4 +1,3 @@
-const { schedule } = require('@netlify/functions');
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
@@ -13,18 +12,16 @@ const msg = {
     html: 'This email was sent',
   }
 
-const handler = async function(event, context) {
-    console.log(event)
-    // sgMail.send(msg).then(() => {
-    //     console.log('Email sent')
-    // })
-    // .catch((error) => {
-    //     console.error(error)
-    // })
-
+exports.handler = async function(event, context) {
+    console.log("Before")
+    sgMail.send(msg).then(() => {
+        console.log('Email sent')
+    })
+    .catch((error) => {
+        console.error(error)
+    })
+    console.log("after")
     return {
         statusCode: 200,
     };
 };
-
-exports.handler = schedule("@hourly", handler);

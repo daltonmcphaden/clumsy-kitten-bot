@@ -29,4 +29,4 @@ exports.handler = async function(event, context) {
     };
 };
 
-module.exports.handler = schedule("40 22 * * *", handler);
+module.exports.handler = schedule("40 21 * * *", handler);

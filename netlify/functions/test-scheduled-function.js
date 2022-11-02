@@ -12,19 +12,17 @@ const msg = {
     html: 'This email was sent',
   }
 
+async function sendMail() {
+    await sgMail.send(msg)
+        .then(() => {
+            console.log('Email sent')
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
+
 exports.handler = async function(event, context) {
-    console.log("Before")
-    sgMail.send(msg).then(() => {
-        console.log('Email sent')
-        return {
-            statusCode: 200,
-        };
-    })
-    .catch((error) => {
-        console.error(error)
-        return {
-            statusCode: 404,
-        };
-    })
-    console.log("after")
+    const promise = await sendMail()
+    return promise
 };

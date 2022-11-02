@@ -16,12 +16,15 @@ exports.handler = async function(event, context) {
     console.log("Before")
     sgMail.send(msg).then(() => {
         console.log('Email sent')
+        return {
+            statusCode: 200,
+        };
     })
     .catch((error) => {
         console.error(error)
+        return {
+            statusCode: 404,
+        };
     })
     console.log("after")
-    return {
-        statusCode: 200,
-    };
 };

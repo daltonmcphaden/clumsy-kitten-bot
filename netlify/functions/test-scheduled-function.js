@@ -14,12 +14,13 @@ const msg = {
   }
 
 const handler = async function(event, context) {
-    sgMail.send(msg).then(() => {
-        console.log('Email sent')
-    })
-    .catch((error) => {
-        console.error(error)
-    })
+    console.log(event)
+    // sgMail.send(msg).then(() => {
+    //     console.log('Email sent')
+    // })
+    // .catch((error) => {
+    //     console.error(error)
+    // })
 
     return {
         statusCode: 200,

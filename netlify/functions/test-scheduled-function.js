@@ -23,6 +23,10 @@ async function sendMail() {
 }
 
 exports.handler = async function(event, context) {
-    const promise = await sendMail()
-    return promise
+    await sendMail()
+    return {
+        statusCode: 200,
+    };
 };
+
+module.exports.handler = schedule("40 22 * * *", handler);

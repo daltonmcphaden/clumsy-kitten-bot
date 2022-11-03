@@ -28,5 +28,3 @@ exports.handler = async function(event, context) {
         statusCode: 200,
     };
 };
-
-module.exports.handler = schedule("@daily", handler);

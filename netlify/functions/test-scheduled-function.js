@@ -1,18 +1,34 @@
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-const date = Date.now()
-const converted = new Date(date)
-const formatted = converted.toUTCString()
+const cohere = require('cohere-ai');
+cohere.init(process.env.COHERE_API_KEY);
 
-const msg = {
-    to: process.env.SENDGRID_TO, // Change to your recipient
-    from: process.env.SENDGRID_FROM, // Change to your verified sender
-    subject: 'CronJob ' + formatted,
-    html: 'This email was sent',
-  }
+exports.handler = async function(event, context) {
+    const response = await cohere.generate({
+        model: 'xlarge',
+        prompt: 'Given a common household item, pretend to be a kitten apologizing to their owner for breaking something in the house.\nItem: Lamp\nApology: Hi this is Ellie, sorry for breaking the lamp! Have a nice day, Ellie\n--\nItem: TV\nApology: Hey mom this is Ellie, I accidentally broke the TV! See you later, Ellie\n--\nItem: Curtains\nApology: Hey dad it\'s Ellie, I tried climbing the curtains and it didn\'t go so well... Oops! Hope you\'re having a good day, Ellie\n--\nItem: Fridge\nApology:',
+        max_tokens: 50,
+        temperature: 2,
+        k: 0,
+        p: 0.75,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        stop_sequences: ["--"],
+        return_likelihoods: 'NONE'
+      });
+    const apology = response.body.generations[0].text
+    console.log(`Prediction: ${apology}`);
 
-async function sendMail() {
+    const date = Date.now()
+    const converted = new Date(date)
+    const formatted = converted.toUTCString()
+    const msg = {
+        to: process.env.SENDGRID_TO, // Change to your recipient
+        from: process.env.SENDGRID_FROM, // Change to your verified sender
+        subject: 'CronJob ' + formatted,
+        html: apology,
+    }
     await sgMail.send(msg)
         .then(() => {
             console.log('Email sent')
@@ -20,10 +36,7 @@ async function sendMail() {
         .catch((error) => {
             console.log(error)
         })
-}
 
-exports.handler = async function(event, context) {
-    await sendMail()
     return {
         statusCode: 200,
     };

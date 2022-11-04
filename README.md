@@ -26,10 +26,6 @@ Apology: Hey dad it's Ellie, I tried climbing the curtains and it didn't go so w
 Item: Fridge
 Apology: { GENERATED RESPONSE }
 
-## Modelling
-
-Model temperature set to 2 to maximize response creativity
-
 ## Example Response Using Above Prompt
 
 "Hi grandma! This is Ellie. I'm sorry for opening the fridge and putting my face in it. I don't know what came over me, hope you have a good day, Ellie"

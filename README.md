@@ -40,6 +40,4 @@ To serve Netlify Scheduled Function locally: `netlify functions:serve`
 
 ## Next Steps
 
-- Randomly select broken item from a list of common household items, so that it's not always the fridge
-
 - Add people to mailing list, make more people laugh :)

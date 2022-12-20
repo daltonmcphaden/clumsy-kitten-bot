@@ -1,2 +1,2 @@
-[functions."test-scheduled-function"]
-schedule = "@daily"
+[functions."generate-apology"]
+schedule = "0 19 * * *"

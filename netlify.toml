@@ -1,2 +1,2 @@
 [functions."generate-apology"]
-schedule = "0 19 * * *"
+schedule = "0 0 * * *"
